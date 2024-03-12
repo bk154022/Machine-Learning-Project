@@ -1,1 +1,1 @@
-## this is my first project using Machine learning
+## this is my first project using Machine learning techniques
