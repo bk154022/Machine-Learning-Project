@@ -1,7 +1,5 @@
 import sys
 sys.path.append('path/to/src')
-
-import sys
 from logger import logging
 
 def error_message_details(error,error_detail:sys):
