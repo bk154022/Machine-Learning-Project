@@ -1,5 +1,34 @@
+import sys
+import os
+
+# Add your project src directory to the system path
+sys.path.append('E:/Ai_projects/ML_Project/src')
+
+# Print the current system path
+print("System path:")
+print(sys.path)
+
+# List directories to ensure the path is correct
+print("Contents of E:/Ai_projects/ML_Project/src:")
+print(os.listdir('E:/Ai_projects/ML_Project/src'))
+print("Contents of E:/Ai_projects/ML_Project/src/components:")
+print(os.listdir('E:/Ai_projects/ML_Project/src/components'))
+
+# Print the content of utils.py to debug
+with open('E:/Ai_projects/ML_Project/src/utils.py', 'r') as file:
+    print(file.read())
+
+# Check if the src module is correctly imported
+try:
+    from src.utils import save_object, evaluate_models
+    print("Successfully imported from src.utils")
+except ImportError as e:
+    print(f"Error importing from src.utils: {e}")
+####################
+
 import os
 import sys
+
 sys.path.append('E:/Ai_projects/ML_Project/src')
 from src.exception import CustomException
 from src.logger import logging
@@ -8,6 +37,9 @@ from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 from dataclasses import dataclass
 import pandas as pd
+
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
@@ -40,4 +72,7 @@ if __name__ == "__main__":
     obj = DataIngestion()
     train_data,test_data=obj.initiate_data_ingestion()
     data_transformation=DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data)
+    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data, test_data)
+
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
